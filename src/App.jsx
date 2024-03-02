@@ -1,30 +1,41 @@
-import React from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import "./index.css";
-import { Parallax, ParallaxLayer } from "@react-spring/parallax";
-
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
+gsap.registerPlugin(ScrollTrigger)
 function App() {
-  return (
-    <div>
-      <Parallax
-        className="text-6xl text-white bg-gray-900 h-screen w-full"
-        pages={4}
-      >
-        <div className="flex justify-between">
-          <ParallaxLayer speed={1}>
-            <p>Whale Cum</p>
-          </ParallaxLayer>
 
-          <ParallaxLayer
-            speed={0.5}
-            offset={1}
-            factor={2}
-            className="text-6xl text-white bg-cover h-screen"
-            style={{ backgroundImage: 'url("/images/wolken.jpg")' }}
-          >
-            <p>Lorem in mein Ipsum</p>
-          </ParallaxLayer>
-        </div>
-      </Parallax>
+  const container = useRef(null)
+  const title = useRef(null)
+
+   useLayoutEffect( () => {
+    const context = gsap.context( () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          target: container.current,
+          start:"top bottom",
+          end:"bottom top",
+          scrub:true
+        }
+      })
+      tl.to(title.current, {y: -5}, 0)
+    })
+
+    return () => context.revert()
+  })
+  return (
+    <div className="" ref={container}>
+      <div>
+        <p className="py-96 text-6xl">PENIS</p>
+      </div>
+      <div>
+        <p ref={title} className="text-white text-3xl">Hello</p>
+        <p className="text-white text-lg">This is something</p>
+      </div>
+      <div>
+        <img src="/images/abc.jpg" alt="" />
+        <img src="/images/wolken.jpg" alt="" />
+      </div>
     </div>
   );
 }
