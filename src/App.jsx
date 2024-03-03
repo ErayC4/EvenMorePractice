@@ -1,40 +1,35 @@
 import React, { useEffect } from "react";
-import { gsap, CSSRulePlugin } from "gsap/all";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { gsap, ScrollTrigger } from "gsap/all";
 
 const App = () => {
   useEffect(() => {
-    // Register GSAP plugins
-    gsap.registerPlugin(CSSRulePlugin, ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger);
 
-    // Create GSAP timeline
     const tl = gsap.timeline({
       defaults: { ease: "power4.inOut", duration: 2 },
     });
 
-    // Get the CSS rule for ".card:before"
-    const flagPoles = CSSRulePlugin.getRule(".card:before");
 
     // GSAP animation for "h1"
-    tl.to(".helpme", {
+    tl.to("h1", {
       "clip-path": "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
       opacity: 1,
       y: 0,
       duration: 2.2,
     });
 
-    // GSAP animation for ".card:before"
-    tl.from(
-      flagPoles,
-      { stagger: 1, opacity: 0, transform: "translateY(100px)" },
-      "-=2"
-    );
-  }, []); // Empty dependency array ensures the effect runs only once after initial render
+    tl.to(".rotation", {
+        x: 800,
+        rotation: 360,
+        duration: 3,
+        scrollTrigger: ".rotation",
+      });
 
-  return (
-    <div className="helpme pl-8">
-      <h1 className="text-4xl pb-8">Some Title</h1>
-      <div className="flex justify-between gap-4">
+  }, []); 
+
+  const randomContent = (
+    <div>
+        <div className="flex justify-between gap-4">
         <p>
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem
           molestias voluptas iste, porro tempora alias cupiditate minima laborum
@@ -52,13 +47,27 @@ const App = () => {
           exercitationem facere accusantium est perferendis necessitatibus?
           Alias recusandae laborum assumenda dicta nulla.
         </p>
+        <p>Lorem</p>
       </div>
 
-      <div className="flex justify-around gap-4 pt-4">
+      <div className="flex justify-around gap-4 pt-4 pb-16">
         <img src="/images/abc.jpg" alt="" className="w-96 object-cover" />
         <img src="/images/wolken.jpg" alt="" className="w-96 object-cover" />
         <img src="/images/xyz.jpg" className="w-96 object-cover" alt="" />
       </div>
+    </div>
+  )
+  
+
+  return (
+    <div className="pl-8">
+      <h1 className="text-4xl pb-8 pt-32">Some Title</h1>
+      {randomContent}
+      {randomContent}
+      {randomContent}
+
+      <img src="/images/xyz.jpg" className="rotation w-96 object-cover" alt="" />
+
     </div>
   );
 };
