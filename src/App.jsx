@@ -1,31 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { gsap, ScrollTrigger } from "gsap/all";
+gsap.registerPlugin(ScrollTrigger);
 
 const App = () => {
+
+
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const tl = gsap.timeline({
-      defaults: { ease: "power4.inOut", duration: 2 },
+    gsap.to(".rotation", {
+      x: 400,
+      duration: 5,
+      scrollTrigger: {
+        trigger: ".stopit",
+        start: "center 50%", // Adjust this according to when you want the animation to start
+        end: "center 70%", // Adjust this according to when you want the animation to end
+        scrub: 1,
+      },
     });
-
-
-    // GSAP animation for "h1"
-    tl.to("h1", {
-      "clip-path": "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
-      opacity: 1,
-      y: 0,
-      duration: 2.2,
-    });
-
-    tl.to(".rotation", {
-        x: 800,
-        rotation: 360,
-        duration: 3,
-        scrollTrigger: ".rotation",
-      });
-
-  }, []); 
+  }, []);
 
   const randomContent = (
     <div>
@@ -64,9 +55,16 @@ const App = () => {
       <h1 className="text-4xl pb-8 pt-32">Some Title</h1>
       {randomContent}
       {randomContent}
-      {randomContent}
+      
 
-      <img src="/images/xyz.jpg" className="rotation w-96 object-cover" alt="" />
+      <img
+        src="/images/xyz.jpg"
+        className="rotation w-96 object-cover"
+        alt=""
+      />
+
+      {randomContent}
+      <h1 className="stopit text-3xl">Stop</h1>
 
     </div>
   );
