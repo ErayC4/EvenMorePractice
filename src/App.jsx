@@ -6,15 +6,13 @@ const App = () => {
 
 
   useEffect(() => {
-    gsap.to(".rotation", {
+    gsap.to(".stopit", {
       x: 400,
-      duration: 5,
+      duration: 1,
       scrollTrigger: {
         trigger: ".stopit",
-        start: "center 50%", // Adjust this according to when you want the animation to start
-        end: "center 70%", // Adjust this according to when you want the animation to end
-        scrub: 1,
-      },
+        start: "top center"
+      }
     });
   }, []);
 
@@ -52,19 +50,12 @@ const App = () => {
 
   return (
     <div className="pl-8">
-      <h1 className="text-4xl pb-8 pt-32">Some Title</h1>
-      {randomContent}
-      {randomContent}
-      
+      <h1 className="text-4xl pb-8 pt-32 w-screen bg-green-400 h-screen">Some Title</h1>
 
-      <img
-        src="/images/xyz.jpg"
-        className="rotation w-96 object-cover"
-        alt=""
-      />
 
-      {randomContent}
-      <h1 className="stopit text-3xl">Stop</h1>
+      <div className="stopit bg-blue-500 w-16 h-16">Ayo</div>
+
+      <div className=" text-3xl mb-96">Stop</div>
 
     </div>
   );
